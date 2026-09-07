@@ -1,165 +1,117 @@
-Markdown
-
-\# Visit Ethiopia: RAG Chatbot
-
+Visit Ethiopia: RAG Chatbot
 
 
 A production-grade Retrieval-Augmented Generation (RAG) assistant designed to provide comprehensive, grounded information regarding Ethiopian destinations, cultural landmarks, national services, and travel logistics\[cite: 4, 6]. The platform indexes official federal and regional tourism portals into a persistent Chroma vector collection and leverages hybrid retrieval to serve accurate responses\[cite: 1, 2, 6].
 
 
 
-\---
+---
 
 
 
-\## Core Capabilities
+Core Capabilities
 
 
 
-\* \*\*Hybrid Retrieval (Dense + Sparse):\*\* Combines semantic vector similarity with BM25 keyword scoring and fuzzy query expansion to catch regional terminology and exact landmark names\[cite: 2].
+Hybrid Retrieval (Dense + Sparse):Combines semantic vector similarity with BM25 keyword scoring and fuzzy query expansion to catch spelling /typing errors for regional terminology and exact landmark names.
 
-\* \*\*Automated Web Crawler:\*\* Headless Selenium and BeautifulSoup crawler tuned to extract domain-specific content across Ethiopian tourism platforms\[cite: 7].
+Automated Web Crawler:Headless Selenium and BeautifulSoup crawler tuned to extract domain-specific content across Ethiopian tourism platforms.
 
-\* \*\*Intelligent Ingestion Pipeline:\*\* MD5 hash validation avoids duplicate indexing, while an automated orphan-purging routine removes outdated chunks\[cite: 6].
+Intelligent Ingestion Pipeline: MD5 hash validation avoids duplicate indexing, while an automated orphan-purging routine removes outdated chunks.
 
-\* \*\*Failover \& Multi-Key Management:\*\* Round-robin Google Gemini key rotation with fallback handling to local Ollama execution and safe-mode failover\[cite: 6, 8].
+Failover \& Multi-Key Management:Round-robin Google Gemini key rotation with fallback handling to local Ollama execution and safe-mode failover.
 
-\* \*\*Multi-Channel Serving:\*\* Provides both a Streamlit interactive chat application and a RESTful Flask API server with rate-limiting, session memory, and response caching\[cite: 9, 10].
-
-
-
-\---
+Multi-Channel Serving:Provides both a Streamlit interactive chat application and a RESTful Flask API server with rate-limiting, session memory, and response caching.
 
 
 
-\## Architecture Flow
+
+Architecture Flow
 
 
-
-```text
 
 User Query
 
-&#x20;   │
+   │
+   ▼
 
-&#x20;   ▼
+Streamlit App (app.py) / Flask API (api\_server.py)
 
-\[Streamlit App (app.py) / Flask API (api\_server.py)]
+   │
+   ├── In-Memory Query Cache Check (Hit -> Instant Return)
+   │
+   └── Query Cache Miss
 
-&#x20;   │
-
-&#x20;   ├── In-Memory Query Cache Check (Hit -> Instant Return)
-
-&#x20;   │
-
-&#x20;   └── Query Cache Miss
-
-&#x20;            │
-
-&#x20;            ├── \[Query Expansion \& Intent Parsing]
-
-&#x20;            │
-
-&#x20;            ├── \[Hybrid Search Engine]
-
-&#x20;            │        ├── Vector Semantic Retrieval (ChromaDB)
-
-&#x20;            │        └── Keyword Search (BM25 + Fuzzy Match)
-
-&#x20;            │
-
-&#x20;            ▼
-
-&#x20;     \[Context Assembly \& Grounding]
-
-&#x20;            │
-
-&#x20;            ▼
-
-&#x20;      \[LLM Generation (Gemini Primary / Ollama Fallback)]
-
-&#x20;            │
-
-&#x20;            ▼
-
-&#x20;       Verified Response
+        │
+        ├── [Query Expansion \& Intent Parsing]
+        │
+        ├── [Hybrid Search Engine]
+        │        ├── Vector Semantic Retrieval (ChromaDB)
+        │        └── Keyword Search (BM25 + Fuzzy Match)
+        │
+        ▼
+     Context Assembly & Grounding
+        │
+        ▼
+     LLM Generation (Gemini Primary / Ollama Fallback)
+        │
+        ▼
+     Verified Response
 
 Repository Structure
 
-Plaintext
 
 RAG-Chatbot/
 
 ├── RAG-Chatbot-from-web-data/
-
 │   ├── chatbot/
-
-│   │   ├── api\_key\_manager.py     # Gemini key rotation and cooldown management
-
-│   │   ├── api\_server.py          # Flask REST API backend (/ask, /ready, /admin)
-
+│   │   ├── api_key_manager.py     # Gemini key rotation and cooldown management
+│   │   ├── api_server.py          # Flask REST API backend (/ask, /ready, /admin)
 │   │   ├── app.py                 # Streamlit interactive UI application
-
 │   │   ├── demo.ipynb             # Interactive testing and indexing notebook
-
-│   │   ├── hybrid\_retriever.py    # Vector + BM25 keyword search engine
-
+│   │   ├── hybrid_retriever.py    # Vector + BM25 keyword search engine
 │   │   ├── ingest.py              # Batch ingestion CLI runner
-
 │   │   ├── prompt.py              # Grounding prompts and personality templates
-
-│   │   ├── text\_to\_doc.py         # Text cleaner, chunker, and LangChain Document creator
-
+│   │   ├── text_to_doc.py         # Text cleaner, chunker, and LangChain Document creator
 │   │   ├── utils.py               # Core pipeline orchestrator and Chroma connection
-
-│   │   └── web\_crawler.py         # Selenium web scraping utility
-
-│   ├── generate\_pdf\_manual.py     # User manual PDF generation script
-
+│   │   └── web_crawler.py         # Selenium web scraping utility
+│   ├── generate_pdf_manual.py     # User manual PDF generation script
 │   ├── requirements.txt           # Python dependencies
-
-│   └── SETUP\_GUIDE.md             # Detailed deployment documentation
-
-├── generate\_pptx.py               # Presentation deck generator
-
-├── Visit\_Ethiopia\_Agentic\_RAG\_Presentation.pptx
-
+│   └── SETUP_GUIDE.md             # Detailed deployment documentation
+├── generate_pptx.py               # Presentation deck generator
+├── Visit_Ethiopia_Agentic_RAG_Presentation.pptx
 ├── .gitignore
-
 └── README.md
+
 
 Setup \& Installation
 
-1\. Clone the Repository
+1. Clone the Repository
 
 Bash
 
-git clone \[https://github.com/Lichetsega/VISIT-ETHIOPIA-RAG-CHATBOT-.git](https://github.com/Lichetsega/VISIT-ETHIOPIA-RAG-CHATBOT-.git)
+git clone [https://github.com/Lichetsega/VISIT-ETHIOPIA-RAG-CHATBOT-.git](https://github.com/Lichetsega/VISIT-ETHIOPIA-RAG-CHATBOT-.git)
 
 cd VISIT-ETHIOPIA-RAG-CHATBOT-
 
-2\. Configure Environment Variables
+2. Configure Environment Variables
 
 Create a .env file inside RAG-Chatbot-from-web-data/:
 
-
-
 Code snippet
 
-GOOGLE\_API\_KEY\_1="your\_gemini\_api\_key\_1"
+GOOGLE_API_KEY_1="your_gemini_api_key_1"
 
-GOOGLE\_API\_KEY\_2="your\_gemini\_api\_key\_2"
+GOOGLE_API_KEY_2="your_gemini_api_key_2"
 
-CHATBOT\_API\_KEY="your\_optional\_service\_auth\_key"
+CHATBOT_API_KEY="your_optional_service_auth_key"
 
 3\. Run the Services
 
 From the RAG-Chatbot-from-web-data/chatbot directory:
 
 
-
 Start the Flask REST API Server:
-
 
 
 Bash
@@ -185,18 +137,17 @@ streamlit run app.py
 Ingest Data Sources Manually:
 
 
-
 Bash
 
 python ingest.py
 
 
 
-\---
 
 
 
-\### Step 3: Commit and Push to GitHub
+
+Step 3: Commit and Push to GitHub
 
 
 
