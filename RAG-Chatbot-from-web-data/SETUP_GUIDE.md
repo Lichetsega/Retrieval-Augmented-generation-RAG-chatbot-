@@ -1,13 +1,13 @@
 # Step-by-Step Setup, Ingestion, Re-indexing & Execution Manual
-## Visit Ethiopia Agentic RAG Chatbot System (Zero-to-Hero Guide)
+## .. Agentic RAG Chatbot System (Zero-to-Hero Guide)
 
-This manual provides **complete, step-by-step instructions** to install, configure, ingest data into, re-index, and run the **Visit Ethiopia RAG Chatbot System**.
+This manual provides **complete, step-by-step instructions** to install, configure, ingest data into, re-index, and run the **.. RAG Chatbot System**.
 
 ---
 
 ## 1. Project Overview & Architecture (What is this project?)
 
-The **Visit Ethiopia RAG Chatbot** is an AI travel assistant designed to answer questions about Ethiopian tourism, culture, visa rules, and history using data crawled directly from official government and regional tourism portals.
+is an AI travel assistant designed to answer questions about Ethiopian tourism, culture, visa rules, and history using data crawled directly from official government and regional tourism portals.
 
 ### How it works under the hood:
 1. **Web Crawler & Chunker**: Selenium (headless Chrome) and BeautifulSoup crawl websites like `visitethiopia.et`, clean the text, and split it into readable chunks.
@@ -123,8 +123,8 @@ Create a configuration file named `.env` inside the `RAG-Chatbot-from-web-data/c
 # =====================================================================
 # Google Gemini API Keys (Multi-Key Automatic Failover & Key Rotation)
 # =====================================================================
-GOOGLE_API_KEY_1=AIzaSyACRPPvdOptcazzjUmVCJV2Sd2x88mLBWs
-GOOGLE_API_KEY_2=AIzaSyChm5oonrV6RU3_ZqoOtL4JpKteLeN3w_Q
+GOOGLE_API_KEY_1=AIzaSyACRPPvdOpt...............
+GOOGLE_API_KEY_2=AIzaSyChm5oonr.............
 
 # =====================================================================
 # Local Ollama LLM Fallback Configuration
@@ -137,9 +137,9 @@ OLLAMA_COOLDOWN_SECONDS=300
 # =====================================================================
 # API Security & Server Settings
 # =====================================================================
-CHATBOT_API_KEY=LYOqxG-9KM8CcfOtZF9iWr2h0lOvui0OYPimW_0g9OUfHvdQMsh8dbRqbbmzWQCe
+CHATBOT_API_KEY=LYOqxG-9KM8CcfOtZF9i........
 REQUIRE_API_KEY=false
-ALLOWED_ORIGINS=https://visitethiopia.et,http://localhost:8501
+ALLOWED_ORIGINS=add an allowed websites or ip adresses here
 REQUEST_TIMEOUT_SECONDS=60
 RATE_LIMIT_REQUESTS=30
 RATE_LIMIT_WINDOW_SECONDS=60
