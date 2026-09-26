@@ -208,15 +208,15 @@ def create_pdf_manual(output_filename="Visit_Ethiopia_RAG_Chatbot_Setup_Manual.p
     ))
     env_content = (
         "# Google Gemini API Keys (Supports multi-key round-robin rotation)\n"
-        "GOOGLE_API_KEY_1=AIzaSyACRPPvdOptcazzjUmVCJV2Sd2x88mLBWs\n"
-        "GOOGLE_API_KEY_2=AIzaSyChm5oonrV6RU3_ZqoOtL4JpKteLeN3w_Q\n\n"
+        "GOOGLE_API_KEY_1=AIzaSyACRPPv................."
+        "GOOGLE_API_KEY_2=AIzaSyChm..................."
         "# Local Ollama LLM Fallback\n"
         "OLLAMA_MODEL=mistral:7b\n"
         "OLLAMA_BASE_URL=http://localhost:11434\n\n"
         "# API Security & Limits\n"
-        "CHATBOT_API_KEY=LYOqxG-9KM8CcfOtZF9iWr2h0lOvui0OYPimW_0g9OUfHvdQMsh8dbRqbbmzWQCe\n"
+        "CHATBOT_API_KEY=LYOqxG-..............\n"
         "REQUIRE_API_KEY=false\n"
-        "ALLOWED_ORIGINS=https://visitethiopia.et,http://localhost:8501\n"
+        "ALLOWED_ORIGINS=you can add allowed origins to access your server it could be link or ip adress"
         "REQUEST_TIMEOUT_SECONDS=60\n"
         "ANONYMIZED_TELEMETRY=False\n"
         "CRAWL_INTERVAL_HOURS=24"
@@ -255,7 +255,7 @@ def create_pdf_manual(output_filename="Visit_Ethiopia_RAG_Chatbot_Setup_Manual.p
         '# Trigger Re-indexing via cURL command:\n'
         'curl -X POST http://localhost:5000/admin/reindex \\\n'
         '  -H "Content-Type: application/json" \\\n'
-        '  -H "X-API-Key: LYOqxG-9KM8CcfOtZF9iWr2h0lOvui0OYPimW_0g9OUfHvdQMsh8dbRqbbmzWQCe" \\\n'
+        '  -H "X-API-Key: LYOqxG-....." \\\n'
         '  -d \'{"urls": ["https://visitethiopia.et/"]}\'\n\n'
         '# Expected HTTP 200 JSON Response:\n'
         '{\n'
